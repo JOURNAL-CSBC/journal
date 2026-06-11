@@ -8,231 +8,84 @@
 1. Встановіть MongoDB Compass (GUI).
 1. Створіть базу даних `college-db` і колекцію в ній `college-schedule`.
 1. Зберіть програму використовуючи команду `mvn clean install`.
-1. Запустіть програму за допомогою команди `mvn spring-boot:run`.
-1. Відкрийте веб-браузер і перейдіть за адресою `http://localhost:8081` для перегляду розкладу.
-
-## Веб-інтерфейс
-
-Після запуску програми веб-інтерфейс доступний у браузері за адресою `http://localhost:8081`.
-
-Сторінки:
-1. **Головна сторінка** (`http://localhost:8081`) — відображає розклад коледжу у вигляді таблиці з усіма колонками.
-1. **Додати заняття** (`http://localhost:8081/add`) — форма для додавання нового рядка до розкладу.
-
-## Docker
-
-Локальне збирання образу Docker-контейнера:
-
-```bash
-docker build -f deploy/Dockerfile -t college-schedule .
-```
-
-Локальний запуск образу Docker-контейнера:
-
-```bash
-docker run --rm -p 8081:8081 -e MONGO_URI=mongodb://host.docker.internal:27017/college-db college-schedule
-```
-
-Після запуску застосунок буде доступний за адресою `http://localhost:8081`.
-
-Для збірки з основної гілки як тег образу Docker-контейнера використовується значення `version` з `pom.xml`, наприклад `0.3.0-snapshot`.
-Тег `latest` публікується лише тоді, коли значення `version` у `pom.xml` не містить `SNAPSHOT`.
-
-
-Перед тим, як завантажити образ, потрібно залогінитись в GitHub Package використовуючи свій GitHub-токен. Цей токен повинен мати дозвіл `read:packages`, бути створеним для того самого користувача GitHub, ім'я якого вказано в команді `docker login`, і цей користувач повинен мати принаймні read-доступ до пакета.
-
-```cmd
-set GITHUB_TOKEN=your-github-token
-echo %GITHUB_TOKEN% | docker login ghcr.io -u your-github-username --password-stdin
-
-docker pull ghcr.io/chdbc-samples/college-schedule:0.3.0-snapshot
-```
-
-Запуск контейнера з образу Docker-контейнера, опублікованого у GitHub Packages:
-
-```bash
-docker run --rm -p 8081:8081 -e MONGO_URI=mongodb://host.docker.internal:27017/college-db ghcr.io/chdbc-samples/college-schedule:0.3.0-snapshot
-```
-
-## Налаштування `MONGO_URI`
-
-За замовчуванням програма використовує адресу `mongodb://localhost:27017/college-db` для підключення до локальної бази даних.
-
-
-### Підключення до MongoDB Atlas
-
-Для підключення MongoDB Atlas потрібно записати connection string кластера в змінну середовища `MONGO_URI` наприклад:
-
-```text
-mongodb+srv://<db-username>:<db-password>@<cluster-url>/college-db?retryWrites=true&w=majority
-```
-
-Порядок налаштування:
-1. Створіть кластер у MongoDB Atlas (тариф Free).
-1. Створіть користувача бази даних у розділі Database Access і збережіть пароль.
-1. Скопіюйте connection string з кнопки Connect -> Drivers і збережіть його.
-1. Створіть базу даних `college-db` і колекцію `college-schedule` в розділі Data Explorer.
-1. Підставте в URI свої `username`, `password` і назву бази даних `college-db` та збережіть у змінній середовища `MONGO_URI`.
-1. Визначте зовнішню IP-адресу (`curl -s https://api.ipify.org && echo`) і додайте її в Network Access.
-
-Приклад запуску з MongoDB Atlas.
-
-Windows Command Prompt:
-
-```cmd
-set MONGO_URI=mongodb+srv://db-username:db-password@cluster0.abcde.mongodb.net/college-db?retryWrites=true^&w=majority
-mvn spring-boot:run
-```
-
-PowerShell:
-
-```powershell
-$env:MONGO_URI="mongodb+srv://db-username:db-password@cluster0.abcde.mongodb.net/college-db?retryWrites=true&w=majority"
-mvn spring-boot:run
-```
-
-Linux/macOS:
-
-```bash
-export MONGO_URI="mongodb+srv://db-username:db-password@cluster0.abcde.mongodb.net/college-db?retryWrites=true&w=majority"
-mvn spring-boot:run
-```
-
-Примітка: якщо пароль містить спеціальні символи, їх потрібно URL-кодувати в connection string. Наприклад, символ `@` потрібно замінити на `%40`.
-
-## Запуск тестів
-
-Локальні команди Maven:
-1. Лише unit-тести:
-`mvn test`
-2. Лише integration-тести:
-`mvn -DskipUnitTests=true verify`
-3. Повна перевірка перед merge або release:
-`mvn verify`
-
-Примітка: integration-тести використовують **Testcontainers MongoDB**. Для локального запуску `mvn verify` має бути запущений Docker Desktop.
+1. Запустіть програму за допомогою команди `mvn exec:java`.
 
 ## Результати виконання програми
 ```
-mvn clean install
+C:\GitHub\college-schedule-app-25>mvn clean install
 [INFO] Scanning for projects...
-[INFO]
-[INFO] ------------------< com.college:college-schedule-25 >-------------------
-[INFO] Building college-sample 0.2.0-SNAPSHOT
+[INFO] 
+[INFO] --------------------< com.college:college-schedule >--------------------
+[INFO] Building college-sample 1.0-SNAPSHOT
 [INFO]   from pom.xml
 [INFO] --------------------------------[ jar ]---------------------------------
-[WARNING] 1 problem was encountered while building the effective model for org.javassist:javassist:jar:3.20.0-GA during dependency collection step for project (use -X to see details)
-[INFO]
-[INFO] --- clean:3.2.0:clean (default-clean) @ college-schedule-25 ---
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ college-schedule ---
 [INFO] Deleting C:\GitHub\college-schedule-app-25\target
-[INFO]
-[INFO] --- checkstyle:3.3.1:check (checkstyle-validate) @ college-schedule-25 ---
+[INFO] 
+[INFO] --- checkstyle:3.3.1:check (checkstyle-validate) @ college-schedule ---
 [INFO] Starting audit...
 Audit done.
 [INFO] You have 0 Checkstyle violations.
 [INFO]
-[INFO] --- jacoco:0.8.12:prepare-agent (prepare-agent) @ college-schedule-25 ---
+[INFO] --- jacoco:0.8.12:prepare-agent (prepare-agent) @ college-schedule ---
 [INFO] argLine set to -javaagent:C:\\Users\\dmitr\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.12\\org.jacoco.agent-0.8.12-runtime.jar=destfile=C:\\GitHub\\college-schedule-app-25\\target\\jacoco.exec
 [INFO]
-[INFO] --- resources:3.3.1:resources (default-resources) @ college-schedule-25 ---
-[INFO] Copying 4 resources from src\main\resources to target\classes
+[INFO] --- resources:3.3.1:resources (default-resources) @ college-schedule ---
+[INFO] Copying 2 resources from src\main\resources to target\classes
 [INFO]
-[INFO] --- compiler:3.13.0:compile (default-compile) @ college-schedule-25 ---
+[INFO] --- compiler:3.13.0:compile (default-compile) @ college-schedule ---
 [INFO] Recompiling the module because of changed source code.
-[INFO] Compiling 4 source files with javac [debug target 17] to target\classes
-[WARNING] location of system modules is not set in conjunction with -source 17
-  not setting the location of system modules may lead to class files that cannot run on JDK 17
-    --release 17 is recommended instead of -source 17 -target 17 because it sets the location of system modules automatically
+[INFO] Compiling 3 source files with javac [debug target 1.8] to target\classes
+[WARNING] bootstrap class path is not set in conjunction with -source 8
+  not setting the bootstrap class path may lead to class files that cannot run on JDK 8
+    --release 8 is recommended instead of -source 8 -target 1.8 because it sets the bootstrap class path automatically
+[WARNING] source value 8 is obsolete and will be removed in a future release
+[WARNING] target value 8 is obsolete and will be removed in a future release
+[WARNING] To suppress warnings about obsolete options, use -Xlint:-options.
 [INFO]
-[INFO] --- resources:3.3.1:testResources (default-testResources) @ college-schedule-25 ---
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ college-schedule ---
 [INFO] skip non existing resourceDirectory C:\GitHub\college-schedule-app-25\src\test\resources
 [INFO]
-[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ college-schedule-25 ---
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ college-schedule ---
 [INFO] Recompiling the module because of changed dependency.
-[INFO] Compiling 6 source files with javac [debug target 17] to target\test-classes
-[WARNING] location of system modules is not set in conjunction with -source 17
-  not setting the location of system modules may lead to class files that cannot run on JDK 17
-    --release 17 is recommended instead of -source 17 -target 17 because it sets the location of system modules automatically
+[INFO] Compiling 1 source file with javac [debug target 1.8] to target\test-classes
+[WARNING] bootstrap class path is not set in conjunction with -source 8
+  not setting the bootstrap class path may lead to class files that cannot run on JDK 8
+    --release 8 is recommended instead of -source 8 -target 1.8 because it sets the bootstrap class path automatically
+[WARNING] source value 8 is obsolete and will be removed in a future release
+[WARNING] target value 8 is obsolete and will be removed in a future release
+[WARNING] To suppress warnings about obsolete options, use -Xlint:-options.
 [INFO]
-[INFO] --- surefire:3.5.1:test (default-test) @ college-schedule-25 ---
-[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
-[INFO]
+[INFO] --- surefire:3.2.5:test (default-test) @ college-schedule ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junit.JUnit3Provider
+[INFO] 
 [INFO] -------------------------------------------------------
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
-[INFO] Running com.college.CollegeApplicationTest
-[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.664 s -- in com.college.CollegeApplicationTest
-[INFO] Running com.college.ScheduleControllerTest
-[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.128 s -- in com.college.ScheduleControllerTest
-[INFO] Running com.college.ScheduleRepositoryTest
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.009 s -- in com.college.ScheduleRepositoryTest
-[INFO] Running com.college.ScheduleTest
-[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.025 s -- in com.college.ScheduleTest
-[INFO]
+[INFO] Running com.college.AppTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.084 s -- in com.college.AppTest
+[INFO] 
 [INFO] Results:
 [INFO]
-[INFO] Tests run: 15, Failures: 0, Errors: 0, Skipped: 0
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 [INFO]
-[INFO]
-[INFO] --- jacoco:0.8.12:report (report) @ college-schedule-25 ---
+[INFO] 
+[INFO] --- jacoco:0.8.12:report (report) @ college-schedule ---
 [INFO] Loading execution data file C:\GitHub\college-schedule-app-25\target\jacoco.exec
-[INFO] Analyzed bundle 'college-sample' with 3 classes
-[INFO]
-[INFO] --- jar:3.4.1:jar (default-jar) @ college-schedule-25 ---
-[INFO] Building jar: C:\GitHub\college-schedule-app-25\target\college-schedule-25-0.2.0-SNAPSHOT.jar
-[INFO]
-[INFO] --- jacoco:0.8.12:check (check) @ college-schedule-25 ---
-[INFO] Loading execution data file C:\GitHub\college-schedule-app-25\target\jacoco.exec
-[INFO] Analyzed bundle 'college-schedule-25' with 3 classes
-[INFO] All coverage checks have been met.
-[INFO]
-[INFO] --- jacoco:0.8.12:prepare-agent-integration (prepare-agent-integration) @ college-schedule-25 ---
-[INFO] integrationTestsArgLine set to -javaagent:C:\\Users\\dmitr\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.12\\org.jacoco.agent-0.8.12-runtime.jar=destfile=C:\\GitHub\\college-schedule-app-25\\target\\jacoco-integration-tests.exec
-[INFO]
-[INFO] --- failsafe:3.5.1:integration-test (default) @ college-schedule-25 ---
-[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
-[INFO]
-[INFO] -------------------------------------------------------
-[INFO]  T E S T S
-[INFO] -------------------------------------------------------
-11:02:14.719 [main] INFO org.testcontainers.DockerClientFactory - Testcontainers version: 1.20.6
-11:02:14.891 [main] DEBUG org.testcontainers.utility.TestcontainersConfiguration - Testcontainers configuration overrides will be loaded from file:/C:/Users/dmitr/.testcontainers.properties
-11:02:16.313 [main] INFO org.testcontainers.dockerclient.DockerClientProviderStrategy - Loaded org.testcontainers.dockerclient.NpipeSocketClientProviderStrategy from ~/.testcontainers.properties, will try it first
-11:02:16.334 [main] DEBUG org.testcontainers.dockerclient.DockerClientProviderStrategy - Trying out strategy: NpipeSocketClientProviderStrategy
-11:02:17.070 [main] DEBUG org.testcontainers.shaded.com.github.dockerjava.core.command.AbstrDockerCmd - Cmd:
-11:02:17.237 [main] DEBUG com.github.dockerjava.zerodep.shaded.org.apache.hc.client5.http.impl.classic.InternalHttpClient - ex-00000001: preparing request execution
-11:02:17.253 [main] DEBUG com.github.dockerjava.zerodep.shaded.org.apache.hc.client5.http.protocol.RequestAddCookies - Cookie spec selected: strict
-11:02:17.289 [main] DEBUG com.github.dockerjava.zerodep.shaded.org.apache.hc.client5.http.protocol.RequestAuthCache - Auth cache not set in the context
-11:02:17.289 [main] DEBUG com.github.dockerjava.zerodep.shaded.org.apache.hc.client5.http.impl.classic.ProtocolExec - ex-00000001: target auth state: UNCHALLENGED
-11:02:17.292 [main] DEBUG com.github.dockerjava.zerodep.shaded.org.apache.hc.client5.http.impl.classic.ProtocolExec - ex-00000001: proxy auth state: UNCHALLENGED
-...
-
-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 21.18 s -- in com.college.ScheduleFlowIntegrationTests
-[INFO]
-[INFO] Results:
-[INFO]
-[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
-[INFO]
-[INFO]
-[INFO] --- failsafe:3.5.1:verify (default) @ college-schedule-25 ---
-[INFO]
-[INFO] --- jacoco:0.8.12:report-integration (report-integration) @ college-schedule-25 ---
-[INFO] Loading execution data file C:\GitHub\college-schedule-app-25\target\jacoco-integration-tests.exec
-[INFO] Analyzed bundle 'college-sample' with 3 classes
-[INFO]
-[INFO] --- jacoco:0.8.12:check (check-integration) @ college-schedule-25 ---
-[INFO] Loading execution data file C:\GitHub\college-schedule-app-25\target\jacoco-integration-tests.exec
-[INFO] Analyzed bundle 'college-schedule-25' with 3 classes
-[INFO] All coverage checks have been met.
-[INFO]
-[INFO] --- install:3.1.2:install (default-install) @ college-schedule-25 ---
-[INFO] Installing C:\GitHub\college-schedule-app-25\pom.xml to C:\Users\dmitr\.m2\repository\com\college\college-schedule-25\0.2.0-SNAPSHOT\college-schedule-25-0.2.0-SNAPSHOT.pom
-[INFO] Installing C:\GitHub\college-schedule-app-25\target\college-schedule-25-0.2.0-SNAPSHOT.jar to C:\Users\dmitr\.m2\repository\com\college\college-schedule-25\0.2.0-SNAPSHOT\college-schedule-25-0.2.0-SNAPSHOT.jar
+[INFO] Analyzed bundle 'college-sample' with 2 classes
+[INFO] 
+[INFO] --- jar:3.4.1:jar (default-jar) @ college-schedule ---
+[INFO] Building jar: C:\GitHub\college-schedule-app-25\target\college-schedule-1.0-SNAPSHOT.jar
+[INFO] 
+[INFO] --- install:3.1.2:install (default-install) @ college-schedule ---
+[INFO] Installing C:\GitHub\college-schedule-app-25\pom.xml to C:\Users\dmitr\.m2\repository\com\college\college-schedule\1.0-SNAPSHOT\college-schedule-1.0-SNAPSHOT.pom
+[INFO] Installing C:\GitHub\college-schedule-app-25\target\college-schedule-1.0-SNAPSHOT.jar to C:\Users\dmitr\.m2\repository\com\college\college-schedule\1.0-SNAPSHOT\college-schedule-1.0-SNAPSHOT.jar
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  59.085 s
-[INFO] Finished at: 2026-04-12T11:02:45+03:00
+[INFO] Total time:  14.035 s
+[INFO] Finished at: 2026-03-08T22:24:07+02:00
 [INFO] ------------------------------------------------------------------------
 ```
 
@@ -241,42 +94,15 @@ C:\GitHub\college-schedule-app-25>chcp 65001
 ```
 
 ```
-mvn spring-boot:run
+C:\GitHub\college-schedule-app-25>mvn exec:java
 [INFO] Scanning for projects...
-[INFO]
-[INFO] ------------------< com.college:college-schedule-25 >-------------------
-[INFO] Building college-sample 0.2.0-SNAPSHOT
+[INFO] 
+[INFO] --------------------< com.college:college-schedule >--------------------
+[INFO] Building college-sample 1.0-SNAPSHOT
 [INFO]   from pom.xml
 [INFO] --------------------------------[ jar ]---------------------------------
-[INFO]
-[INFO] >>> spring-boot:2.5.4:run (default-cli) > test-compile @ college-schedule-25 >>>
-[WARNING] 1 problem was encountered while building the effective model for org.javassist:javassist:jar:3.20.0-GA during dependency collection step for project (use -X to see details)
-[INFO]
-[INFO] --- checkstyle:3.3.1:check (checkstyle-validate) @ college-schedule-25 ---
-[INFO] Starting audit...
-Audit done.
-[INFO] You have 0 Checkstyle violations.
-[INFO]
-[INFO] --- jacoco:0.8.12:prepare-agent (prepare-agent) @ college-schedule-25 ---
-[INFO] argLine set to -javaagent:C:\\Users\\dmitr\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.12\\org.jacoco.agent-0.8.12-runtime.jar=destfile=C:\\GitHub\\college-schedule-app-25\\target\\jacoco.exec
-[INFO]
-[INFO] --- resources:3.3.1:resources (default-resources) @ college-schedule-25 ---
-[INFO] Copying 4 resources from src\main\resources to target\classes
-[INFO]
-[INFO] --- compiler:3.13.0:compile (default-compile) @ college-schedule-25 ---
-[INFO] Nothing to compile - all classes are up to date.
-[INFO]
-[INFO] --- resources:3.3.1:testResources (default-testResources) @ college-schedule-25 ---
-[INFO] skip non existing resourceDirectory C:\GitHub\college-schedule-app-25\src\test\resources
-[INFO]
-[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ college-schedule-25 ---
-[INFO] Nothing to compile - all classes are up to date.
-[INFO]
-[INFO] <<< spring-boot:2.5.4:run (default-cli) < test-compile @ college-schedule-25 <<<
-[INFO]
-[INFO]
-[INFO] --- spring-boot:2.5.4:run (default-cli) @ college-schedule-25 ---
-[INFO] Attaching agents: []
+[INFO] 
+[INFO] --- exec:3.5.0:java (default-cli) @ college-schedule ---
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -286,25 +112,107 @@ Audit done.
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v2.5.4)
 
-2026-04-12 11:23:03.718  INFO 13732 --- [           main] com.college.CollegeApplication           : Starting CollegeApplication using Java 23 on DESKTOP-P20K4U1 with PID 13732 (C:\GitHub\college-schedule-app-25\target\classes started by dmitr in C:\GitHub\college-schedule-app-25)
-2026-04-12 11:23:03.726  INFO 13732 --- [           main] com.college.CollegeApplication           : No active profile set, falling back to default profiles: default
-2026-04-12 11:23:04.654  INFO 13732 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT mode.
-2026-04-12 11:23:04.722  INFO 13732 --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 59 ms. Found 1 MongoDB repository interfaces.
-2026-04-12 11:23:05.436  INFO 13732 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8081 (http)
-2026-04-12 11:23:05.463  INFO 13732 --- [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2026-04-12 11:23:05.464  INFO 13732 --- [           main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.52]
-2026-04-12 11:23:05.613  INFO 13732 --- [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2026-04-12 11:23:05.613  INFO 13732 --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1759 ms
-2026-04-12 11:23:05.837  INFO 13732 --- [           main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[localhost:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms'}
-2026-04-12 11:23:05.950  INFO 13732 --- [localhost:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:7}] to localhost:27017
-2026-04-12 11:23:05.950  INFO 13732 --- [localhost:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:8}] to localhost:27017
-2026-04-12 11:23:05.956  INFO 13732 --- [localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=42085300}
-2026-04-12 11:23:06.768  INFO 13732 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8081 (http) with context path ''
-2026-04-12 11:23:06.780  INFO 13732 --- [           main] com.college.CollegeApplication           : Started CollegeApplication in 3.934 seconds (JVM running for 4.661)
-2026-04-12 11:24:03.335  INFO 13732 --- [nio-8081-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-04-12 11:24:03.337  INFO 13732 --- [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2026-04-12 11:24:03.346  INFO 13732 --- [nio-8081-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
-2026-04-12 11:24:03.443  INFO 13732 --- [nio-8081-exec-1] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:3, serverValue:9}] to localhost:27017
+2026-03-08 18:07:31.502  INFO 13408 --- [lication.main()] com.college.CollegeApplication           : Starting CollegeApplication using Java 23 on DESKTOP-P20K4U1 with PID 13408 (C:\GitHub\college-schedule-app-25\target\classes started by dmitr in C:\GitHub\college-schedule-app-25)
+2026-03-08 18:07:31.505  INFO 13408 --- [lication.main()] com.college.CollegeApplication           : No active profile set, falling back to default profiles: default
+2026-03-08 18:07:32.207  INFO 13408 --- [lication.main()] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT 
+mode.
+2026-03-08 18:07:32.344  INFO 13408 --- [lication.main()] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 130 ms. Found 
+1 MongoDB repository interfaces.
+2026-03-08 18:07:33.342  INFO 13408 --- [lication.main()] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[localhost:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms'}
+2026-03-08 18:07:33.462  INFO 13408 --- [localhost:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:3}] to localhost:27017
+2026-03-08 18:07:33.462  INFO 13408 --- [localhost:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:4}] to localhost:27017
+2026-03-08 18:07:33.465  INFO 13408 --- [localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=34980100}
+2026-03-08 18:07:33.913  INFO 13408 --- [lication.main()] com.college.CollegeApplication           : Started CollegeApplication in 3.273 seconds (JVM running for 7.728)
+1. Додати розклад з CSV-файлу
+2. Подивитись розклад
+3. Видалити розклад
+4. Вихід
+Введіть номер команди (1-4): 1
+2026-03-08 18:07:38.839  INFO 13408 --- [lication.main()] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:3, serverValue:5}] to localhost:27017
+5 документів з рядками з розкладу завантажено з CSV.
+1. Додати розклад з CSV-файлу
+2. Подивитись розклад
+3. Видалити розклад
+4. Вихід
+Введіть номер команди (1-4): 2
+Знайдено 5 документів розкладу:
+Schedule { id="69ad9eca5a0d8c1ec8bdd57b"
+ studentFirstName="Аліса"
+ studentLastName="Мельник"
+ teacherFirstName="Іван"
+ teacherLastName="Петренко"
+ courseName="Вступ до програмування"
+ departmentName="Комп`ютерні науки"
+ roomNumber="210"
+ semester="Осінь"
+ year="2024"
+ startTime="09:00:00"
+ endTime="10:30:00"
+}
+Schedule { id="69ad9eca5a0d8c1ec8bdd57c"
+ studentFirstName="Катерина"
+ studentLastName="Левченко"
+ teacherFirstName="Іван"
+ teacherLastName="Петренко"
+ courseName="Вступ до програмування"
+ departmentName="Комп`ютерні науки"
+ roomNumber="210"
+ semester="Осінь"
+ year="2024"
+ startTime="09:00:00"
+ endTime="10:30:00"
+}
+Schedule { id="69ad9eca5a0d8c1ec8bdd57d"
+ studentFirstName="Дмитро"
+ studentLastName="Шевченко"
+ teacherFirstName="Іван"
+ teacherLastName="Петренко"
+ courseName="Вступ до програмування"
+ departmentName="Комп`ютерні науки"
+ roomNumber="210"
+ semester="Осінь"
+ year="2024"
+ startTime="09:00:00"
+ endTime="10:30:00"
+}
+Schedule { id="69ad9eca5a0d8c1ec8bdd57e"
+ studentFirstName="Богдан"
+ studentLastName="Іванов"
+ teacherFirstName="Оксана"
+ teacherLastName="Коваль"
+ courseName="Математичний аналіз I"
+ departmentName="Математика"
+ roomNumber="212"
+ semester="Осінь"
+ year="2024"
+ startTime="11:00:00"
+ endTime="12:30:00"
+}
+Schedule { id="69ad9eca5a0d8c1ec8bdd57f"
+ studentFirstName="Олена"
+ studentLastName="Петренко"
+ teacherFirstName="Оксана"
+ teacherLastName="Коваль"
+ courseName="Математичний аналіз I"
+ departmentName="Математика"
+ roomNumber="212"
+ semester="Осінь"
+ year="2024"
+ startTime="11:00:00"
+ endTime="12:30:00"
+}
+1. Додати розклад з CSV-файлу
+2. Подивитись розклад
+3. Видалити розклад
+4. Вихід
+Введіть номер команди (1-4): 3
+Розклад видалено.
+1. Додати розклад з CSV-файлу
+2. Подивитись розклад
+3. Видалити розклад
+4. Вихід
+Введіть номер команди (1-4): 4
+2026-03-08 18:07:45.299  INFO 13408 --- [ionShutdownHook] org.mongodb.driver.connection            : Closed connection [connectionId{localValue:3, serverValue:5}] to localhost:27017 because the pool has been closed.
 ```
 
 ## CI (GitHub Actions)
@@ -319,52 +227,12 @@ CI-pipeline запускається автоматично для:
 1. `static-analysis`:
 - Запускає Checkstyle (`mvn -B -DskipTests checkstyle:check`)
 - Завершує CI з помилкою, якщо правила порушено
-2. `unit-tests`:
-- Запускає `mvn -B -Dcheckstyle.skip=true -DskipIntegrationTests=true test`
-- Публікує `Surefire`-звіти та артефакти покриття unit-тестів
-- Додає в `GITHUB_STEP_SUMMARY` підсумок line coverage для unit-тестів
-3. `integration-tests`:
-- Запускає `mvn -B -Dcheckstyle.skip=true -DskipUnitTests=true verify`
-- Піднімає ізольований MongoDB через Testcontainers
-- Публікує `Failsafe`-звіти та артефакти покриття integration-тестів
-- Додає в `GITHUB_STEP_SUMMARY` окремий підсумок line coverage для `com.college.Schedule`
-- Додає в `GITHUB_STEP_SUMMARY` окремий підсумок line coverage для `com.college.ScheduleController`
-4. `build`:
-- Запускає `mvn -B -DskipUnitTests=true -DskipIntegrationTests=true package`
-- Створює JAR після успішного проходження unit та integration тестів
-5. `publish`:
-- Використовує reusable workflow `.github/workflows/maven-publish.yml`
-- Запускається лише після успішного завершення етапу `build`
+2. `build`:
+- Запускає `mvn -B package` (включно з unit-тестами)
+- Завершується з помилкою, якщо збірка або тести не пройшли
 
 Артефакти та звіти:
 1. Артефакт збірки: `target/*.jar`
 2. Звіти тестів: `target/surefire-reports/**`
-3. Звіти integration-тестів: `target/failsafe-reports/**`
-4. Звіти unit test coverage: `target/site/jacoco/**`, `target/jacoco.exec`
-5. Звіти integration test coverage: `target/site/jacoco-integration-tests/**`, `target/jacoco-integration-tests.exec`
-6. При падінні static analysis workflow завантажує логи: `target/ci-logs/**`
-7. При падінні unit-тестів workflow завантажує логи: `target/ci-logs/**`
-8. При падінні integration-тестів workflow завантажує логи `target/ci-logs/**` і додатково звіти `target/failsafe-reports/**` та `target/site/jacoco-integration-tests/**`
-
-## Тестування та покриття
-
-Поточний стан:
-1. Unit-тести написані на **JUnit 5**.
-2. Integration-тести запускаються через **Failsafe** і використовують **Testcontainers MongoDB**.
-3. Для покриття використовується **JaCoCo**.
-4. У `pom.xml` налаштовано мінімальне покриття **75% line coverage** для unit-тестів (перевірка на етапі `package`) і **100% line coverage** для інтеграційних тестів для класів `com.college.Schedule` та `com.college.ScheduleController` (перевірка на етапі `verify`).
-
-Локальний запуск:
-1. Тільки unit-тести:
-`mvn test`
-2. Тільки integration-тести:
-`mvn -DskipUnitTests=true verify`
-3. Повна перевірка (unit + integration + JaCoCo):
-`mvn verify`
-
-Звіти:
-1. JUnit/Surefire: `target/surefire-reports/`
-2. JUnit/Failsafe: `target/failsafe-reports/`
-3. Unit JaCoCo HTML: `target/site/jacoco/index.html`
-4. Integration JaCoCo HTML: `target/site/jacoco-integration-tests/index.html`
-5. Unit JaCoCo CSV: `target/site/jacoco/jacoco.csv`
+3. Звіти покриття: `target/site/jacoco/**`, `target/jacoco.exec`
+4. Підсумок покриття виводиться в логах збірки та в GitHub Step Summary.
