@@ -6,35 +6,35 @@
 1. В Windows в параметрах системи додайте `;<шлях до папки з Maven>\bin` в системну змінну PATH.
 1. Встановіть СКБД MongoDB Community Server вибрати варіант установки Complete -> "Run service as Network Service user"
 1. Встановіть MongoDB Compass (GUI).
-1. Створіть базу даних `college-db` і колекцію в ній `college-schedule`.
+1. Створіть базу даних `journal-db` і колекцію в ній `journal-journal`.
 1. Зберіть програму використовуючи команду `mvn clean install`.
 1. Запустіть програму за допомогою команди `mvn exec:java`.
 
 ## Результати виконання програми
 ```
-C:\GitHub\college-schedule-app-25>mvn clean install
+C:\GitHub\journal-journal-app-25>mvn clean install
 [INFO] Scanning for projects...
 [INFO] 
-[INFO] --------------------< com.college:college-schedule >--------------------
-[INFO] Building college-sample 1.0-SNAPSHOT
+[INFO] --------------------< com.journal:journal-journal >--------------------
+[INFO] Building journal-sample 1.0-SNAPSHOT
 [INFO]   from pom.xml
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO] 
-[INFO] --- clean:3.2.0:clean (default-clean) @ college-schedule ---
-[INFO] Deleting C:\GitHub\college-schedule-app-25\target
+[INFO] --- clean:3.2.0:clean (default-clean) @ journal-journal ---
+[INFO] Deleting C:\GitHub\journal-journal-app-25\target
 [INFO] 
-[INFO] --- checkstyle:3.3.1:check (checkstyle-validate) @ college-schedule ---
+[INFO] --- checkstyle:3.3.1:check (checkstyle-validate) @ journal-journal ---
 [INFO] Starting audit...
 Audit done.
 [INFO] You have 0 Checkstyle violations.
 [INFO]
-[INFO] --- jacoco:0.8.12:prepare-agent (prepare-agent) @ college-schedule ---
-[INFO] argLine set to -javaagent:C:\\Users\\dmitr\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.12\\org.jacoco.agent-0.8.12-runtime.jar=destfile=C:\\GitHub\\college-schedule-app-25\\target\\jacoco.exec
+[INFO] --- jacoco:0.8.12:prepare-agent (prepare-agent) @ journal-journal ---
+[INFO] argLine set to -javaagent:C:\\Users\\dmitr\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.12\\org.jacoco.agent-0.8.12-runtime.jar=destfile=C:\\GitHub\\journal-journal-app-25\\target\\jacoco.exec
 [INFO]
-[INFO] --- resources:3.3.1:resources (default-resources) @ college-schedule ---
+[INFO] --- resources:3.3.1:resources (default-resources) @ journal-journal ---
 [INFO] Copying 2 resources from src\main\resources to target\classes
 [INFO]
-[INFO] --- compiler:3.13.0:compile (default-compile) @ college-schedule ---
+[INFO] --- compiler:3.13.0:compile (default-compile) @ journal-journal ---
 [INFO] Recompiling the module because of changed source code.
 [INFO] Compiling 3 source files with javac [debug target 1.8] to target\classes
 [WARNING] bootstrap class path is not set in conjunction with -source 8
@@ -44,10 +44,10 @@ Audit done.
 [WARNING] target value 8 is obsolete and will be removed in a future release
 [WARNING] To suppress warnings about obsolete options, use -Xlint:-options.
 [INFO]
-[INFO] --- resources:3.3.1:testResources (default-testResources) @ college-schedule ---
-[INFO] skip non existing resourceDirectory C:\GitHub\college-schedule-app-25\src\test\resources
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ journal-journal ---
+[INFO] skip non existing resourceDirectory C:\GitHub\journal-journal-app-25\src\test\resources
 [INFO]
-[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ college-schedule ---
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ journal-journal ---
 [INFO] Recompiling the module because of changed dependency.
 [INFO] Compiling 1 source file with javac [debug target 1.8] to target\test-classes
 [WARNING] bootstrap class path is not set in conjunction with -source 8
@@ -57,30 +57,30 @@ Audit done.
 [WARNING] target value 8 is obsolete and will be removed in a future release
 [WARNING] To suppress warnings about obsolete options, use -Xlint:-options.
 [INFO]
-[INFO] --- surefire:3.2.5:test (default-test) @ college-schedule ---
+[INFO] --- surefire:3.2.5:test (default-test) @ journal-journal ---
 [INFO] Using auto detected provider org.apache.maven.surefire.junit.JUnit3Provider
 [INFO] 
 [INFO] -------------------------------------------------------
 [INFO]  T E S T S
 [INFO] -------------------------------------------------------
-[INFO] Running com.college.AppTest
-[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.084 s -- in com.college.AppTest
+[INFO] Running com.journal.AppTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.084 s -- in com.journal.AppTest
 [INFO] 
 [INFO] Results:
 [INFO]
 [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 [INFO]
 [INFO] 
-[INFO] --- jacoco:0.8.12:report (report) @ college-schedule ---
-[INFO] Loading execution data file C:\GitHub\college-schedule-app-25\target\jacoco.exec
-[INFO] Analyzed bundle 'college-sample' with 2 classes
+[INFO] --- jacoco:0.8.12:report (report) @ journal-journal ---
+[INFO] Loading execution data file C:\GitHub\journal-journal-app-25\target\jacoco.exec
+[INFO] Analyzed bundle 'journal-sample' with 2 classes
 [INFO] 
-[INFO] --- jar:3.4.1:jar (default-jar) @ college-schedule ---
-[INFO] Building jar: C:\GitHub\college-schedule-app-25\target\college-schedule-1.0-SNAPSHOT.jar
+[INFO] --- jar:3.4.1:jar (default-jar) @ journal-journal ---
+[INFO] Building jar: C:\GitHub\journal-journal-app-25\target\journal-journal-1.0-SNAPSHOT.jar
 [INFO] 
-[INFO] --- install:3.1.2:install (default-install) @ college-schedule ---
-[INFO] Installing C:\GitHub\college-schedule-app-25\pom.xml to C:\Users\dmitr\.m2\repository\com\college\college-schedule\1.0-SNAPSHOT\college-schedule-1.0-SNAPSHOT.pom
-[INFO] Installing C:\GitHub\college-schedule-app-25\target\college-schedule-1.0-SNAPSHOT.jar to C:\Users\dmitr\.m2\repository\com\college\college-schedule\1.0-SNAPSHOT\college-schedule-1.0-SNAPSHOT.jar
+[INFO] --- install:3.1.2:install (default-install) @ journal-journal ---
+[INFO] Installing C:\GitHub\journal-journal-app-25\pom.xml to C:\Users\dmitr\.m2\repository\com\journal\journal-journal\1.0-SNAPSHOT\journal-journal-1.0-SNAPSHOT.pom
+[INFO] Installing C:\GitHub\journal-journal-app-25\target\journal-journal-1.0-SNAPSHOT.jar to C:\Users\dmitr\.m2\repository\com\journal\journal-journal\1.0-SNAPSHOT\journal-journal-1.0-SNAPSHOT.jar
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
@@ -90,19 +90,19 @@ Audit done.
 ```
 
 ```
-C:\GitHub\college-schedule-app-25>chcp 65001
+C:\GitHub\journal-journal-app-25>chcp 65001
 ```
 
 ```
-C:\GitHub\college-schedule-app-25>mvn exec:java
+C:\GitHub\journal-journal-app-25>mvn exec:java
 [INFO] Scanning for projects...
 [INFO] 
-[INFO] --------------------< com.college:college-schedule >--------------------
-[INFO] Building college-sample 1.0-SNAPSHOT
+[INFO] --------------------< com.journal:journal-journal >--------------------
+[INFO] Building journal-sample 1.0-SNAPSHOT
 [INFO]   from pom.xml
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO] 
-[INFO] --- exec:3.5.0:java (default-cli) @ college-schedule ---
+[INFO] --- exec:3.5.0:java (default-cli) @ journal-journal ---
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -112,8 +112,8 @@ C:\GitHub\college-schedule-app-25>mvn exec:java
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v2.5.4)
 
-2026-03-08 18:07:31.502  INFO 13408 --- [lication.main()] com.college.CollegeApplication           : Starting CollegeApplication using Java 23 on DESKTOP-P20K4U1 with PID 13408 (C:\GitHub\college-schedule-app-25\target\classes started by dmitr in C:\GitHub\college-schedule-app-25)
-2026-03-08 18:07:31.505  INFO 13408 --- [lication.main()] com.college.CollegeApplication           : No active profile set, falling back to default profiles: default
+2026-03-08 18:07:31.502  INFO 13408 --- [lication.main()] com.journal.journalApplication           : Starting journalApplication using Java 23 on DESKTOP-P20K4U1 with PID 13408 (C:\GitHub\journal-journal-app-25\target\classes started by dmitr in C:\GitHub\journal-journal-app-25)
+2026-03-08 18:07:31.505  INFO 13408 --- [lication.main()] com.journal.journalApplication           : No active profile set, falling back to default profiles: default
 2026-03-08 18:07:32.207  INFO 13408 --- [lication.main()] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data MongoDB repositories in DEFAULT 
 mode.
 2026-03-08 18:07:32.344  INFO 13408 --- [lication.main()] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 130 ms. Found 
@@ -122,7 +122,7 @@ mode.
 2026-03-08 18:07:33.462  INFO 13408 --- [localhost:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:3}] to localhost:27017
 2026-03-08 18:07:33.462  INFO 13408 --- [localhost:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:4}] to localhost:27017
 2026-03-08 18:07:33.465  INFO 13408 --- [localhost:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=localhost:27017, type=STANDALONE, state=CONNECTED, ok=true, minWireVersion=0, maxWireVersion=25, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=34980100}
-2026-03-08 18:07:33.913  INFO 13408 --- [lication.main()] com.college.CollegeApplication           : Started CollegeApplication in 3.273 seconds (JVM running for 7.728)
+2026-03-08 18:07:33.913  INFO 13408 --- [lication.main()] com.journal.journalApplication           : Started journalApplication in 3.273 seconds (JVM running for 7.728)
 1. Додати розклад з CSV-файлу
 2. Подивитись розклад
 3. Видалити розклад
@@ -136,7 +136,7 @@ mode.
 4. Вихід
 Введіть номер команди (1-4): 2
 Знайдено 5 документів розкладу:
-Schedule { id="69ad9eca5a0d8c1ec8bdd57b"
+journal { id="69ad9eca5a0d8c1ec8bdd57b"
  studentFirstName="Аліса"
  studentLastName="Мельник"
  teacherFirstName="Іван"
@@ -149,7 +149,7 @@ Schedule { id="69ad9eca5a0d8c1ec8bdd57b"
  startTime="09:00:00"
  endTime="10:30:00"
 }
-Schedule { id="69ad9eca5a0d8c1ec8bdd57c"
+journal { id="69ad9eca5a0d8c1ec8bdd57c"
  studentFirstName="Катерина"
  studentLastName="Левченко"
  teacherFirstName="Іван"
@@ -162,7 +162,7 @@ Schedule { id="69ad9eca5a0d8c1ec8bdd57c"
  startTime="09:00:00"
  endTime="10:30:00"
 }
-Schedule { id="69ad9eca5a0d8c1ec8bdd57d"
+journal { id="69ad9eca5a0d8c1ec8bdd57d"
  studentFirstName="Дмитро"
  studentLastName="Шевченко"
  teacherFirstName="Іван"
@@ -175,7 +175,7 @@ Schedule { id="69ad9eca5a0d8c1ec8bdd57d"
  startTime="09:00:00"
  endTime="10:30:00"
 }
-Schedule { id="69ad9eca5a0d8c1ec8bdd57e"
+journal { id="69ad9eca5a0d8c1ec8bdd57e"
  studentFirstName="Богдан"
  studentLastName="Іванов"
  teacherFirstName="Оксана"
@@ -188,7 +188,7 @@ Schedule { id="69ad9eca5a0d8c1ec8bdd57e"
  startTime="11:00:00"
  endTime="12:30:00"
 }
-Schedule { id="69ad9eca5a0d8c1ec8bdd57f"
+journal { id="69ad9eca5a0d8c1ec8bdd57f"
  studentFirstName="Олена"
  studentLastName="Петренко"
  teacherFirstName="Оксана"
