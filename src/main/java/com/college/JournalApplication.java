@@ -1,4 +1,4 @@
-package com.college;
+package com.journal;
 
 import com.opencsv.CSVReader;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,27 +22,27 @@ import java.util.Scanner;
  * Методи:
  * - main(String[] args): запускає додаток Spring Boot.
  * - run(String... args): метод, що виконується після запуску додатку. Виводить меню для користувача.
- * - addScheduleFromCsv(): додає розклад з CSV-файлу до бази даних.
- * - viewAllSchedules(): виводить всі розклади з бази даних.
- * - dropAllSchedules(): видаляє всі розклади з бази даних.
+ * - addjournalFromCsv(): додає розклад з CSV-файлу до бази даних.
+ * - viewAlljournals(): виводить всі розклади з бази даних.
+ * - dropAlljournals(): видаляє всі розклади з бази даних.
  * 
  * Поля:
- * - scheduleRepository: репозиторій для роботи з розкладами.
+ * - journalRepository: репозиторій для роботи з розкладами.
  * 
  * Використовує:
  * - Scanner для зчитування вводу користувача.
  * - CSVReader для зчитування даних з CSV-файлу.
- * - Schedule для представлення документу розкладу.
- * - ScheduleRepository для взаємодії з базою даних.
+ * - journal для представлення документу розкладу.
+ * - journalRepository для взаємодії з базою даних.
  */
 @SpringBootApplication
-public class CollegeApplication implements CommandLineRunner {
+public class JournalApplication implements CommandLineRunner {
 
     @Autowired
-    private ScheduleRepository scheduleRepository;
+    private JournalRepository journalRepository;
 
     public static void main(String[] args) {
-        SpringApplication.run(CollegeApplication.class, args);
+        SpringApplication.run(JournalApplication.class, args);
     }
 
     @Override
@@ -65,13 +65,13 @@ public class CollegeApplication implements CommandLineRunner {
 
             switch (choice) {
                 case 1:
-                    addScheduleFromCsv();
+                    addjournalFromCsv();
                     break;
                 case 2:
-                    viewAllSchedules();
+                    viewAlljournals();
                     break;
                 case 3:
-                    dropAllSchedules();
+                    dropAlljournals();
                     break;
                 case 4:
                     scanner.close();
@@ -83,18 +83,18 @@ public class CollegeApplication implements CommandLineRunner {
         }
     }
 
-    private void addScheduleFromCsv() {
+    private void addjournalFromCsv() {
         try (CSVReader reader = new CSVReader(new InputStreamReader(
-            getClass().getClassLoader().getResourceAsStream("schedule.csv"),
+            getClass().getClassLoader().getResourceAsStream("journal.csv"),
             StandardCharsets.UTF_8)
         )) {
             List<String[]> records = reader.readAll();
             
             records.remove(0); // Видалити перший рядок з назвами стовпців
 
-            List<Schedule> scheduleList = new ArrayList<>();
+            List<Journal> journalList = new ArrayList<>();
             for (String[] record : records) {
-                Schedule schedule = new Schedule(
+                Journal journal = new Journal(
                     record[0], // studentFirstName
                     record[1], // studentLastName
                     record[2], // teacherFirstName
@@ -102,37 +102,36 @@ public class CollegeApplication implements CommandLineRunner {
                     record[4], // courseName
                     record[5], // departmentName
                     record[6], // roomNumber
-                    record[7], // semester
+                    Double.parseDouble(record[7]), // semester
                     record[8], // year
-                    record[9], // startTime
-                    record[10] // endTime
+                    record[9] // startTime
                 );
 
-                scheduleList.add(schedule);
+                journalList.add(journal);
             }
             
             // Очистити існуючий розклад, щоб уникнути дублювання при повторному імпорті
-            scheduleRepository.deleteAll();
-            scheduleRepository.saveAll(scheduleList);
-            System.out.println(scheduleList.size() + " документів з рядками з розкладу завантажено з CSV.");
+            journalRepository.deleteAll();
+            journalRepository.saveAll(journalList);
+            System.out.println(journalList.size() + " документів з рядками з розкладу завантажено з CSV.");
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Не вдалось завантажити рядок розкладу з CSV.");
         }
     }
 
-    private void viewAllSchedules() {
-        List<Schedule> schedules = scheduleRepository.findAll();
-        if (schedules.isEmpty()) {
+    private void viewAlljournals() {
+        List<Journal> journals = journalRepository.findAll();
+        if (journals.isEmpty()) {
             System.out.println("Документи з рядками розкладу не знайдено.");
         } else {
-            System.out.println("Знайдено " + schedules.size() + " документів розкладу:");
-            schedules.forEach(System.out::println);
+            System.out.println("Знайдено " + journals.size() + " документів розкладу:");
+            journals.forEach(j -> System.out.println(j.toString()));
         }
     }
 
-    private void dropAllSchedules() {
-        scheduleRepository.deleteAll();
+    private void dropAlljournals() {
+        journalRepository.deleteAll();
         System.out.println("Розклад видалено.");
     }
 }
