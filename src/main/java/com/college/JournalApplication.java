@@ -1,4 +1,4 @@
-package com.college;
+package com.journal;
 
 import com.opencsv.CSVReader;
 import org.springframework.beans.factory.annotation.Autowired;

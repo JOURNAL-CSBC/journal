@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="9.3">
+<file name="/workspaces/journal/src/main/java/com/college/JournalApplication.java">
+</file>
+<file name="/workspaces/journal/src/main/java/com/college/Journal.java">
+</file>
+<file name="/workspaces/journal/src/main/java/com/college/JournalRepository.java">
+</file>
+<file name="/workspaces/journal/src/main/resources/application.properties">
+</file>
+</checkstyle>
