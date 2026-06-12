@@ -4,7 +4,7 @@
   <groupId>com.journal</groupId>
   <artifactId>journal-journal</artifactId>
   <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.1.0-SNAPSHOT</version>
   <name>journal-sample</name>
   <url>http://maven.apache.org</url>
 
